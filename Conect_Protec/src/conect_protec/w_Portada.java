@@ -28,7 +28,7 @@ public class w_Portada extends javax.swing.JFrame {
             }
         };
 
-        t = new Timer(100, al);
+        t = new Timer(50, al);
         setLocationRelativeTo(null);
         
         initComponents();

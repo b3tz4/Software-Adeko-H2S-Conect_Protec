@@ -2,53 +2,50 @@ package conect_protec;
 
 import java.util.Enumeration;
 import gnu.io.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 public class w_Casa extends javax.swing.JFrame {
-    /*CommPortIdentifier myCPI;
-    SerialPort mySP;
-    Vector portopc = new Vector();
-    //-----------------------------------
-    String com = "COM5";
-    //-----------------------------------
-    public void conectar() throws PortInUseException, UnsupportedCommOperationException {
-        Enumeration commports = CommPortIdentifier.getPortIdentifiers();
-	int i=0;
-	while(commports.hasMoreElements()){			
-            myCPI = (CommPortIdentifier) commports.nextElement();
-            portopc.add(myCPI.getName());
-            i++;
-	}
-        Object seleccion = JOptionPane.showInputDialog(this, "Selecciona el puerto","¿Qué puerto vas a usar?",
-	JOptionPane.QUESTION_MESSAGE, null, portopc.toArray(), null);
-        com = (String) seleccion;
-        
-        while (commports.hasMoreElements()) {
-            myCPI = (CommPortIdentifier) commports.nextElement();
-            if (myCPI.getName().equals(com)) {
-                break;
-            }
-        }
-        CommPort puerto = myCPI.open("Puerto Serial", 2000);
-	mySP = (SerialPort) puerto;
-	mySP.setSerialPortParams(9600, mySP.DATABITS_8, mySP.STOPBITS_1, mySP.PARITY_NONE);
-	JOptionPane.showMessageDialog(null, "Conectado al " + com,"Conexión establecida",
-	JOptionPane.INFORMATION_MESSAGE);
-    }*/
+
+    int x, y;
+    private Timer t;
+    private ActionListener al;
+
     public w_Casa() {
-        /*try {
-            conectar();
-        } catch (PortInUseException e) {
-			
-		e.printStackTrace();
-	} catch (UnsupportedCommOperationException e) {
-            e.printStackTrace();
-	}*/
         initComponents();
+        al = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (jProgressBar1.getValue() <= 100) {
+                    jProgressBar1.setValue(jProgressBar1.getValue() + 1);
+                } else {
+                    t.stop();
+                }
+                if (jProgressBar1.getValue() == 99) {
+                    w_Lab1 lab = new w_Lab1();
+                    lab.setVisible(true);
+                    dispose();
+                }
+                if(jProgressBar1.getValue() > 0 && jProgressBar1.getValue() <= 25)
+                    jLabel1.setText("Cargando Librerias");
+                if(jProgressBar1.getValue() > 25 && jProgressBar1.getValue() <= 50)
+                    jLabel1.setText("Comunicando al Puerto Serial");
+                if(jProgressBar1.getValue() > 50 && jProgressBar1.getValue() <= 75)
+                    jLabel1.setText("Leyendo Informanción");
+                if(jProgressBar1.getValue() > 75 && jProgressBar1.getValue() <= 99)
+                    jLabel1.setText("Obteniendo Informacion de Grafica");
+                
+            }
+        };
+        t = new Timer(50, al);
+        setLocationRelativeTo(null);
+        jProgressBar1.setVisible(false);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -58,6 +55,8 @@ public class w_Casa extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +69,11 @@ public class w_Casa extends javax.swing.JFrame {
         jLabel5.setText("Detector de Gases para Laboratorio");
 
         jButton3.setText("Comenzar Registro");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -82,6 +86,8 @@ public class w_Casa extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,6 +107,12 @@ public class w_Casa extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addGap(56, 56, 56))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(219, 219, 219))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +129,11 @@ public class w_Casa extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
@@ -125,12 +141,14 @@ public class w_Casa extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        w_Lab1 lab = new w_Lab1();
-        lab.setVisible(true);
-        dispose();
+        jProgressBar1.setVisible(true);
+        if(!t.isRunning()){;
+            t.start();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -139,9 +157,10 @@ public class w_Casa extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3MouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -177,8 +196,10 @@ public class w_Casa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JProgressBar jProgressBar1;
     // End of variables declaration//GEN-END:variables
 }

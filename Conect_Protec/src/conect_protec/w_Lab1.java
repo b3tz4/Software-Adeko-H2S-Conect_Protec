@@ -58,50 +58,55 @@ public class w_Lab1 extends javax.swing.JFrame {
                     Serie.add(i, f1);
                     Serie1.add(i, f2);
                     //Comprobador de Estado
-                    if(i>=0){
+                    if (i >= 0) {
                         jLabel25.setText("Se ha Establecido la Comunicación");
                         jLabel25.setForeground(Color.blue);
                     }
                     //Limites de Calibracion                           //Calibrar Parte
-                    int aire_min = 0;                                  //Importante
-                    int aire_max = 50;                                 //De lo que hay en el Arduino
-                    int aire_CO2_min = 50;
-                    int aire_CO2_max = 100;
-                    int CO2_min = 100;
-                    int CO2_max = 200;       
-                    //Control Ambiental de Sensor 1                        
-                    if(f1<=aire_max){                                        
+                    int aire_min_1 = 0;                                  //Importante
+                    int aire_max_1 = 50;                                 //De lo que hay en el Arduino
+                    int aire_CO2_min_1 = 50;
+                    int aire_CO2_max_1 = 100;
+                    int co2_min_1 = 100;
+                    int co2_max_1 = 200;
+
+                    int aire_min_2 = 0;                                  //Importante
+                    int aire_max_2 = 50;                                 //De lo que hay en el Arduino
+                    int aire_CO2_min_2 = 50;
+                    int aire_CO2_max_2 = 100;
+                    int co2_min_2 = 100;
+                    int co2_max_2 = 200;
+                    //Control Ambiental de Sensores                        
+                    if (f1 <= aire_max_1) {
                         jPanel4.setBackground(Color.green);
-                        jPanel5.setBackground(Color.black);             
+                        jPanel5.setBackground(Color.black);
                         jPanel6.setBackground(Color.black);
                     }
-                    if(f1>aire_CO2_min && f1<=aire_CO2_max){                              
+                    if (f2 <= aire_max_2) {
+                        jPanel1.setBackground(Color.black);
+                        jPanel2.setBackground(Color.black);
+                        jPanel3.setBackground(Color.green);
+                    }
+                    if (f1 > aire_CO2_min_1 && f1 <= aire_CO2_max_1) {
                         jPanel4.setBackground(Color.black);
                         jPanel5.setBackground(Color.orange);
                         jPanel6.setBackground(Color.black);
                     }
-                    if(f1>CO2_min && f1<=CO2_max){                       
-                        jPanel4.setBackground(Color.black);              
-                        jPanel5.setBackground(Color.black);
-                        jPanel6.setBackground(Color.red);
-                    }
-                    //Control Ambiental de Sensor 2                        
-                    if(f2<=aire_min){                                       
-                        jPanel3.setBackground(Color.green);
-                        jPanel2.setBackground(Color.black);            
-                        jPanel1.setBackground(Color.black);
-                    }
-                    if(f2>aire_CO2_min && f2<=aire_CO2_max){                       
+                    if (f2 > aire_CO2_min_2 && f2 <= aire_CO2_max_2) {
                         jPanel1.setBackground(Color.black);
                         jPanel2.setBackground(Color.orange);
                         jPanel3.setBackground(Color.black);
                     }
-                    if(f2>CO2_min && f2<=CO2_max){                             
-                        jPanel2.setBackground(Color.black);          
-                        jPanel3.setBackground(Color.black);
-                        jPanel1.setBackground(Color.red);
+                    if (f1 > co2_min_1 && f1 <= co2_max_1) {
+                        jPanel4.setBackground(Color.black);
+                        jPanel5.setBackground(Color.black);
+                        jPanel6.setBackground(Color.red);
                     }
-                    
+                    if (f2 > co2_min_2 && f2 <= co2_max_2) {
+                        jPanel1.setBackground(Color.red);
+                        jPanel2.setBackground(Color.black);
+                        jPanel3.setBackground(Color.black);
+                    }
                 }
             } catch (SerialPortException ex) {
                 Logger.getLogger(w_Lab1.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,11 +118,13 @@ public class w_Lab1 extends javax.swing.JFrame {
 
     public w_Lab1() {
         initComponents();
-        if(i==0){
+        if (i == 0) {
             jLabel25.setText("No se ha Establecido la Comunicación");
             jLabel25.setForeground(Color.red);
         }
-        jLabel14.setText("COM5");                                //<--------------Cambiar el COM        
+        jLabel14.setText("COM1");
+        jLabel14.setVisible(true);
+        //<--------------Cambiar el COM        
         //Obtener el Tiempo Real e Imprimir en jLabel20
         Calendar calendario = Calendar.getInstance();
         int hora, hora_p, minutos, segundos;
@@ -131,7 +138,7 @@ public class w_Lab1 extends javax.swing.JFrame {
         jLabel20.setText(hora_p + ":" + minutos + ":" + segundos);
 
         try {
-            Arduino.arduinoRXTX("COM5", 9600, Listener);         //<--------------Cambiar el COM
+            Arduino.arduinoRXTX("COM1", 9600, Listener);         //<--------------Cambiar el COM
         } catch (ArduinoException ex) {
             Logger.getLogger(w_Lab1.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -392,75 +399,75 @@ public class w_Lab1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(443, 443, 443))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(91, 91, 91)
+                                .addComponent(jLabel5))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(91, 91, 91)
-                                        .addComponent(jLabel5))
-                                    .addComponent(jLabel3)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel8)
                                         .addGap(65, 65, 65)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel9))
-                                    .addComponent(jLabel1)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel13)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3)
-                                .addGap(20, 20, 20))))
+                                .addComponent(jLabel9)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(33, 33, 33))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel23))
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel19)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jLabel23))
-                                .addGap(16, 16, 16)
+                                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                                                .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(136, 136, 136)
-                                                .addComponent(jLabel26)
-                                                .addGap(0, 0, Short.MAX_VALUE)))))))
-                        .addGap(119, 119, 119)))
+                                        .addGap(136, 136, 136)
+                                        .addComponent(jLabel26))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -503,26 +510,26 @@ public class w_Lab1 extends javax.swing.JFrame {
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel26)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel21)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19))
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel21)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -633,9 +640,7 @@ public class w_Lab1 extends javax.swing.JFrame {
     private void setVisible(int EXIT_ON_CLOSE) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
     public class Hilo implements Runnable {
-
         @Override
         public void run() {
             new Timer(0, new ActionListener() {
@@ -648,14 +653,11 @@ public class w_Lab1 extends javax.swing.JFrame {
             }).start();
         }
     }
-
     Thread hilo1 = new Thread() {
         @Override
         public void run() {
             int hor = 0, min = 0, seg = 0;
-
             for (;;) {
-
                 try {
                     seg++;
                     if (seg > 59) {
@@ -668,26 +670,43 @@ public class w_Lab1 extends javax.swing.JFrame {
                     }
                     if (seg >= 10 && min >= 10) {
                     }
-                    String segundo="";
-                    String minuto="";
-                    String hora="";
+                    String segundo = "";
+                    String minuto = "";
+                    String hora = "";
                     //Actualizacion en los Segundos
-                    if(seg==0)segundo = "00";
-                    if(seg<10)segundo = "0" + String.valueOf(seg);
-                    if(seg>=10)segundo = String.valueOf(seg);
+                    if (seg == 0) {
+                        segundo = "00";
+                    }
+                    if (seg < 10) {
+                        segundo = "0" + String.valueOf(seg);
+                    }
+                    if (seg >= 10) {
+                        segundo = String.valueOf(seg);
+                    }
                     //Actualizacion en los Minutos
-                    if(min==0)minuto = "00";
-                    if(min<10)minuto = "0" + String.valueOf(min);
-                    if(min>=10)minuto= String.valueOf(min);
+                    if (min == 0) {
+                        minuto = "00";
+                    }
+                    if (min < 10) {
+                        minuto = "0" + String.valueOf(min);
+                    }
+                    if (min >= 10) {
+                        minuto = String.valueOf(min);
+                    }
                     //Actualizacion en las horas
-                    if(hor==0)hora="00";
-                    if(hor<10)hora = "0"+String.valueOf(hor);
-                    if(hor>=10)hora = String.valueOf(hor);
-                    
-                    
+                    if (hor == 0) {
+                        hora = "00";
+                    }
+                    if (hor < 10) {
+                        hora = "0" + String.valueOf(hor);
+                    }
+                    if (hor >= 10) {
+                        hora = String.valueOf(hor);
+                    }
                     jLabel24.setText(hora + ":" + minuto + ":" + segundo);
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
+                }
+                catch (InterruptedException e) {
                 }
             }
         }
